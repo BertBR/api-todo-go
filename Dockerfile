@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY . ./
 
-RUN go build -o /api-todo
+RUN go build -ldflags "-s -w" -o /api-todo
 
-FROM gcr.io/distroless/base-debian10
+FROM scratch
 COPY --from=build /api-todo /api-todo
 EXPOSE 9000
 ENTRYPOINT ["/api-todo"]
